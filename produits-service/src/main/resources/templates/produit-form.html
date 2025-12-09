@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${titre}">Formulaire Produit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+  <h1 th:text="${titre}">Formulaire Produit</h1>
+
+  <!-- CORRECTION: Enlève th:object si tu ne l'utilises pas -->
+  <form action="/web/produits/save" method="post">
+    <!-- CORRECTION: Utilise th:value au lieu de th:field -->
+    <input type="hidden" name="id" th:value="${produit != null ? produit.id : ''}">
+
+    <div class="mb-3">
+      <label class="form-label">Nom</label>
+      <input type="text" class="form-control" name="nom"
+             th:value="${produit != null ? produit.nom : ''}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Prix (MAD)</label>
+      <input type="number" step="0.01" class="form-control" name="prix"
+             th:value="${produit != null ? produit.prix : ''}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" rows="3"
+                th:text="${produit != null ? produit.description : ''}"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a href="/web/produits" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>
+</body>
+</html>
